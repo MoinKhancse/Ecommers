@@ -1,0 +1,57 @@
+{% extends "adminpanel/admin_base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+               <div class="midde_cont">
+                  <div class="container-fluid">
+                     <div class="row column_title">
+                        <div class="col-md-12">
+                          <div class="page_title">
+                            <h2>Dashboard</h2>
+                          </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               {% for i in edit_all  %}
+               <form action="{% url 'product_update' i.id %}" method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="mb-3">
+                    <label for="product_name" style="color: black"class="form-label">Product Name</label>
+                    <input type="text" name="product_name" class="form-control" id="product_name" value="{{i.peoduct_name}}">
+                  </div>
+                  <div class="mb-3">
+                    <label for="product_old_price" style="color: black"class="form-label">Product Old Price</label>
+                    <input type="number" name="product_old_price" class="form-control" id="product_old_price" value="{{i.product_old_price}}">
+                  </div>
+                  <div class="mb-3">
+                    <label for="product_new_price" style="color: black"class="form-label">Product New Price</label>
+                    <input type="number" name="product_new_price" class="form-control" id="product_new_price" value="{{i.product_new_price}}">
+                  </div>
+                  <div class="mb-3">
+                    <label for="product_category" style="color: black"class="form-label">Product Category</label>
+                    <select name="product_category" class="form-control" id="product_category">
+                      {% for j in product_cat  %}                     
+                      <option {% if i.product_category_id == j.id %} selected {% endif %} value="{{j.id}}">{{j.category_name}}</option>
+                      {% endfor %}
+                  </select>            
+                  </div>
+                  <div>
+                    {% for j in i.prod.all %}
+                    <img src="/media/{{ j.product_image_all }}" alt="Image" style="height: 100px; width: 100px">
+                    {% endfor %}
+                 </div>
+                 <div class="mb-3">
+                  <input type="file" name="product_img" class="form-control" value='{{j.product_image_all}}' id="product_img" multiple hidden>                   
+                </div>
+                  <div class="mb-3">
+                    <label for="product_img" style="color: black" class="form-label">Product Image</label>
+                    <input type="file" name="product_img"class="form-control" id="product_img" multiple>                   
+                  </div>
+                  <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+                {% endfor %}
+
+{% endblock content %}

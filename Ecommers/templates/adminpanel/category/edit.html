@@ -1,0 +1,36 @@
+{% extends "adminpanel/admin_base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+               <div class="midde_cont">
+                  <div class="container-fluid">
+                     <div class="row column_title">
+                        <div class="col-md-12">
+                          <div class="page_title">
+                            <h2>Dashboard</h2>
+                          </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <form action="{% url 'edit' edit_all.id %}" method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="mb-3">
+                    <label for="category_name" style="color: black"class="form-label">Category Name</label>
+                    <input type="text" name="cat_name" class="form-control" value="{{ edit_all.category_name }}"id="category_name" required>
+                  </div>
+                  <div>
+                    {% if edit_all.category_img %} 
+                    <img src="/media/{{ edit_all.category_img }}" alt="Image" style="height: 100px; width: 100px">
+                    {% endif %}
+                 </div>
+                  <div class="mb-3">
+                    <label for="category_img" style="color: black" class="form-label">Image</label>
+                    <input type="file" name="cat_img"class="form-control" value="" id="category_img" multiple>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Up Date</button>
+                </form>
+
+{% endblock content %}

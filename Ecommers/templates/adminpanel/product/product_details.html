@@ -1,0 +1,45 @@
+{% extends "adminpanel/admin_base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+               <div class="midde_cont">
+                  <div class="container-fluid">
+                     <div class="row column_title">
+                        <div class="col-md-12">
+                          <div class="page_title">
+                            <h2>Dashboard</h2>
+                          </div>
+                        </div>
+                     </div>
+                     <div class="container-fluid">
+                        {% for i in product_show %}
+                        <h3 class="text-center">{{ i.peoduct_name }}</h3>
+                        <h4 class="text-center">{{i.product_category.category_name}}</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="text-center" style="font-weight: bold"><span style="color: red">Old Price :</span><del style="color: black">{{i.product_old_price}}</del></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-center" style="font-weight: bold; color: black "><span style="color: green">New Price :</span>{{i.product_new_price}}</p>
+                            </div>
+                        </div>
+                        <div  style="text-align: center">
+                        {% for j in i.prod.all %}
+                        <img class="img-thumbnail" src="/media/{{j.product_image_all}}" alt="no img" style="width:200px; heigth: 200px;">
+                        {% endfor %}
+                        </div>
+
+
+                        {% endfor %}
+                     </div>
+                  </div>
+               </div>
+
+                <script>
+                  function confirmdelete(){
+                     return confirm("Are you Sure Delete");
+                   }
+               </script>
+{% endblock content %}

@@ -1,0 +1,55 @@
+{% extends "adminpanel/admin_base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+               <div class="midde_cont">
+                  <div class="container-fluid">
+                     <div class="row column_title">
+                        <div class="col-md-12">
+                          <div class="page_title">
+                            <h2>Dashboard</h2>
+                          </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <table class="table" style="color: black ">
+                  <thead>
+                    <tr>
+                      <th scope="col">Id</th>
+                      <th scope="col">Product Name</th>
+                      <th scope="col">Category</th>
+                      <th scope="col">Old Price</th>
+                      <th scope="col">New Price</th>
+                      <th scope="col">Image</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                     {% for i in product_show %}
+                    <tr>
+                      <th scope="row">{{i.id}}</th>
+                      <td><a href="{% url 'product_details' i.id %}">{{i.peoduct_name}}</a></td>
+                      <td>{{i.product_category.category_name}}</td>
+                      <td><del>$ {{i.product_old_price}}</del></td>
+                      <td>$ {{i.product_new_price}}</td>
+
+                      {% for j in  i.prod.all%}                      
+                      <td> <img src="/media/{{j.product_image_all}}" alt="no img" style="width:60px; heigth: 60px;"></td>
+                      {% endfor %}
+                      <td><a href="{% url 'product_edit' i.id %}" style="color: black">Edit</a> ||
+                        <a href="{% url 'product_delete' i.id %}" style="color: red;" onclick="return confirmdelete()">Delete</a></td>
+                    </tr>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+
+                <script>
+                  function confirmdelete(){
+                     return confirm("Are you Sure Delete");
+                   }
+               </script>
+{% endblock content %}

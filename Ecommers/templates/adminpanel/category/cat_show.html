@@ -1,0 +1,46 @@
+{% extends "adminpanel/admin_base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+               <div class="midde_cont">
+                  <div class="container-fluid">
+                     <div class="row column_title">
+                        <div class="col-md-12">
+                          <div class="page_title">
+                            <h2>Dashboard</h2>
+                          </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Id</th>
+                      <th scope="col">Category Name</th>
+                      <th scope="col">Category Image</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                     {% for i in category_show %}
+                    <tr>
+                      <th scope="row">{{i.id}}</th>
+                      <td>{{i.category_name}}</td>
+                      <td><img src="/media/{{i.category_img}}" alt="no img" style="width:100px; heigth: 100px;"></td>
+                      <td><a href="{% url 'edit' i.id %}" style="color: black">Edit</a> ||
+                        <a href="{% url 'delete' i.id %}" style="color: red;" onclick="return confirmdelete()">Delete</a></td>
+                    </tr>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+
+                <script>
+                  function confirmdelete(){
+                     return confirm("Are you Sure Delete");
+                   }
+               </script>
+{% endblock content %}
